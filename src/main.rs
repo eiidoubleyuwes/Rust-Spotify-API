@@ -18,10 +18,20 @@ struct msanii{
 #[derive(Serialize, Deserialize,Debug)]
 struct album{
     name: String,
+    //Using Vecrots to store multiple artists
+    wasaniis: Vec<msanii>,
     albamu_url: Url,
 }
 #[derive(Serialize, Deserialize,Debug)]
 struct track{
     name: String,
+    href: String,
+    albamu: album,
     track_url: Url,
+}
+struct APIresponse{
+    tracks: Items<track>,
+}
+struct Items<T>{
+    items: Vec<T>,
 }
