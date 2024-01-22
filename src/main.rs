@@ -35,3 +35,12 @@ struct APIresponse{
 struct Items<T>{
     items: Vec<T>,
 }
+fn print_tracks(tracks: vec<&track>){
+    for track in tracks{
+        println!("Track: {}",track.name);
+        println!("Album: {}",track.albamu.name);
+        println!("Artist: {}",track.albamu.wasaniis[0].name);
+        println!("Spotify URL: {}",track.track_url.spotify);
+        println!("\n");
+    }
+}
