@@ -1,7 +1,7 @@
 //This simple project is for me to understand how the Spotify API works and how to use it.
 //Check the cargo.toml file for dependencies like reqwest and all.
-use reqwest::{self};
-use serde::{Serialize, Deserialize, de::value::StringDeserializer};
+use reqwest::{self, Request};
+use serde::{Serialize, Deserialize, Debug};
 use reqwest::header::{ACCEPT, AUTHORIZATION, CONTENT_TYPE};
 use std::env;
 
