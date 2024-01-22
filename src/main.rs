@@ -62,11 +62,17 @@ async fn main(){
     .send()
     .await
     .unwrap();
-match Response.Status(){
+match response.Status(){
     reqwest::StatusCode::OK => {
-        let jibu: APIresponse = jibu.json().await.unwrap();
-        let tracks = jibu.tracks.items;
-        print_tracks(tracks);
+        match response.json::<APIresponse>().await{
+            Ok(parsed) => print_tracks(parsed.tracks.items.iter().collect()),
+            Err(e) => {
+                println!("Error: {}",e);
+            }
+        }
+    }
+    reqwest::StatusCode::UNAUTHORIZED => {
+        println!("Bad token");
     }
 }
 }
