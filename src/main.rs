@@ -44,3 +44,6 @@ fn print_tracks(tracks: vec<&track>){
         println!("\n");
     }
 }
+async fn main(){
+    
+}
