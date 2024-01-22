@@ -44,6 +44,7 @@ fn print_tracks(tracks: vec<&track>){
         println!("\n");
     }
 }
+#[tokio::main]
 async fn main(){
-    
+
 }
