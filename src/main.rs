@@ -46,5 +46,6 @@ fn print_tracks(tracks: vec<&track>){
 }
 #[tokio::main]
 async fn main(){
+    let args: Vec<String> = env::args().collect();
 
 }
