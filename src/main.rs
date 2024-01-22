@@ -1,6 +1,6 @@
 //This simple project is for me to understand how the Spotify API works and how to use it.
 //Check the cargo.toml file for dependencies like reqwest and all.
-use reqwest;
+use reqwest::{self, Response};
 use serde::{Serialize, Deserialize};
 use reqwest::header::{ACCEPT, AUTHORIZATION, CONTENT_TYPE};
 use std::env;
@@ -54,4 +54,19 @@ async fn main(){
         query = tafuta
     );
     let client = reqwest::Client::new();
+    let jibu = client
+    .get(&link)
+    .header(AUTHORIZATION, format!("Bearer {}", auth_token))
+    .header(CONTENT_TYPE, "application/json")
+    .header(ACCEPT, "application/json")
+    .send()
+    .await
+    .unwrap();
+match Response.Status(){
+    reqwest::StatusCode::OK => {
+        let jibu: APIresponse = jibu.json().await.unwrap();
+        let tracks = jibu.tracks.items;
+        print_tracks(tracks);
+    }
+}
 }
