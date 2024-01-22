@@ -1,7 +1,7 @@
 //This simple project is for me to understand how the Spotify API works and how to use it.
 //Check the cargo.toml file for dependencies like reqwest and all.
-use reqwest::{self, Response};
-use serde::{Serialize, Deserialize};
+use reqwest::{self};
+use serde::{Serialize, Deserialize, de::value::StringDeserializer};
 use reqwest::header::{ACCEPT, AUTHORIZATION, CONTENT_TYPE};
 use std::env;
 
@@ -43,8 +43,8 @@ fn print_tracks(tracks: Vec<&track>){
         .wasaniis
         .iter()
         .map(|artist| artist.name.to_string())
-        .collect::<Vec<String>>()
-    );
+        .collect::<String>()
+        );
         println!("Spotify URL: {}",track.track_url.spotify);
         println!("\n");
     }
@@ -67,9 +67,9 @@ async fn main(){
     .send()
     .await
     .unwrap();
-match response.Status(){
+match jibu.Status(){
     reqwest::StatusCode::OK => {
-        match response.json::<APIresponse>().await{
+        match jibu.json::<APIresponse>().await{
             Ok(parsed) => print_tracks(parsed.tracks.items.iter().collect()),
             Err(e) => {
                 println!("Error: {}",e);
