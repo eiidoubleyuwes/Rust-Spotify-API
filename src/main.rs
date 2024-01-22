@@ -35,11 +35,16 @@ struct APIresponse{
 struct Items<T>{
     items: Vec<T>,
 }
-fn print_tracks(tracks: vec<&track>){
+fn print_tracks(tracks: Vec<&track>){
     for track in tracks{
         println!("Track: {}",track.name);
         println!("Album: {}",track.albamu.name);
-        println!("Artist: {}",track.albamu.wasaniis[0].name);
+        println!("Artist: {}",track.albamu
+        .wasaniis
+        .iter()
+        .map(|artist| artist.name.to_string())
+        .collect::<Vec<String>>()
+    );
         println!("Spotify URL: {}",track.track_url.spotify);
         println!("\n");
     }
@@ -69,10 +74,13 @@ match response.Status(){
             Err(e) => {
                 println!("Error: {}",e);
             }
-        }
+        };
     }
     reqwest::StatusCode::UNAUTHORIZED => {
         println!("Bad token");
+    }
+    other => {
+        panic!("Unexpected status code: {:?}", other);
     }
 }
 }
