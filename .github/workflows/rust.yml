@@ -20,3 +20,5 @@ jobs:
       run: cargo build --verbose
     - name: Run tests
       run: cargo test --verbose
+    - name: Run a simple example
+      run: cargo run "After hours" "d8374d46bc6a4291a631d2c49850d367"
