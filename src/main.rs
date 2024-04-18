@@ -1,37 +1,37 @@
 //This simple project is for me to understand how the Spotify API works and how to use it.
 //Check the cargo.toml file for dependencies like reqwest and all.
-use reqwest::{self, Request};
+use reqwest::{self};
 use serde::{Serialize, Deserialize};
 use reqwest::header::{ACCEPT, AUTHORIZATION, CONTENT_TYPE};
 use std::env;
 
-//Here we will define the structs for artist,album and track
+//Here we will define the structs for artist,Album and Track
 #[derive(Serialize, Deserialize,Debug)]
 struct Url{
     spotify: String,
 }
 #[derive(Serialize, Deserialize,Debug)]
-struct msanii{
+struct Msanii{
     name: String,
     msanii_url: Url,
 }
 #[derive(Serialize, Deserialize,Debug)]
-struct album{
+struct Album{
     name: String,
     //Using Vecrots to store multiple artists
-    wasaniis: Vec<msanii>,
+    wasaniis: Vec<Msanii>,
     albamu_url: Url,
 }
 #[derive(Serialize, Deserialize,Debug)]
-struct track{
+struct Track{
     name: String,
     href: String,
-    albamu: album,
+    albamu: Album,
     track_url: Url,
 }
 #[derive(Deserialize,Debug)]
 struct APIresponse{
-    tracks: Items<track>,
+    tracks: Items<Track>,
 }
 #[derive(Debug)]
 struct Items<T>{
@@ -52,17 +52,17 @@ where
     }
 }
 
-fn print_tracks(tracks: Vec<&track>){
-    for track in tracks{
-        println!("Track: {}",track.name);
-        println!("Album: {}",track.albamu.name);
-        println!("Artist: {}",track.albamu
+fn print_tracks(tracks: Vec<&Track>){
+    for Track in tracks{
+        println!("Track: {}",Track.name);
+        println!("Album: {}",Track.albamu.name);
+        println!("Artist: {}",Track.albamu
         .wasaniis
         .iter()
         .map(|msanii| msanii.name.to_string())
         .collect::<String>()
         );
-        println!("Spotify URL: {}",track.track_url.spotify);
+        println!("Spotify URL: {}",Track.track_url.spotify);
         println!("\n");
     }
 }
@@ -72,7 +72,7 @@ async fn main(){
     let tafuta = &args[1];
     let auth_token = &args[2];
     let link = format!(
-        "https://api.spotify.com/v1/search?q={query}&type=track,artist",
+        "https://api.spotify.com/v1/search?q={query}&type=Track,artist",
         query = tafuta
     );
     let client = reqwest::Client::new();
